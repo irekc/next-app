@@ -46,7 +46,7 @@ const products: ProductItemType[] = [
 
 export default function Home() {
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-between">
+		<main className="flex min-h-screen flex-col items-center justify-between dark:bg-gray-900">
 			<section className="max-w-md p-12 sm:mx-auto sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
 				<ProductList products={products} />
 			</section>
