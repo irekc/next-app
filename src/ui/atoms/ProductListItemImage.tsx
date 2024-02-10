@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 export const ProductCoverImage = ({ src, alt }: { src: string; alt: string }) => {
 	return (
 		<div className="aspect-square overflow-hidden rounded-md bg-gray-100">
