@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/ui/organisms/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,18 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>{children}</body>
+		<html lang="pl">
+			<body className={inter.className}>
+				<nav className="fixed start-0 top-0 z-20 h-20 w-full border-b border-gray-200 bg-white shadow-md dark:border-gray-600 dark:bg-gray-900">
+					<Navbar />
+				</nav>
+				<main className="mt-20 flex min-h-[calc(100vh-160px)] flex-col items-center justify-between dark:bg-gray-900">
+					{children}
+				</main>
+				<footer className="flex h-20 items-center justify-center  bg-gray-900">
+					<p className="mx-auto  text-center text-gray-400">© Ireneusz Cisło</p>
+				</footer>
+			</body>
 		</html>
 	);
 }
