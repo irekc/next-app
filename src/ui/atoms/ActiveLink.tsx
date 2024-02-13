@@ -16,7 +16,7 @@ export const ActiveLink = ({ href, children }: { href: string; children: ReactNo
 				isActive && `underline`,
 			)}
 		>
-			<Link href={href}>{children}</Link>
+			<Link href={{pathname: href}}>{children}</Link>
 		</li>
 	);
 };
