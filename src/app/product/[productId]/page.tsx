@@ -1,20 +1,34 @@
 import { Suspense } from "react";
-import { getProductById, getProdutsList } from "@/api/products";
+import {type  Metadata } from "next";
+import { getProductById} from "@/api/products";
 import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
 import { ProductCoverImage } from "@/ui/atoms/ProductListItemImage";
 import { SuggestedProductsList } from "@/ui/organisms/SuggestedProductsList";
 
-export const generateStaticParams = async () => {
-    const products = await getProdutsList()
-	return products.map(product => ({productId: product.id}))
-};
+
+// export const generateStaticParams = async () => {
+// 	const products = await getProdutsList();
+// 	return products.map((product) => ({ productId: product.id }));
+// };
+
+export const generateMetadata = async ({params} : {params: {productId: string}}) : Promise<Metadata> => {
+	const product = await getProductById(params.productId)
+	return {
+		title: product.name,
+		description: product.description
+	}
+}
+
+// export const metadata: Metadata = {
+// 	title: 'Product 123'
+// }
 
 export default async function SingleProductPage({ params }: { params: { productId: string } }) {
 	const product = await getProductById(params.productId);
 
 	return (
 		<>
-			<article className="max-w-md">
+			<article className="mx-auto max-w-md">
 				<ProductCoverImage src={product.coverImage.src} alt={product.coverImage.alt} />
 				<ProductListItemDescription product={product} />
 			</article>
@@ -26,3 +40,5 @@ export default async function SingleProductPage({ params }: { params: { productI
 		</>
 	);
 }
+
+
