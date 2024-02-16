@@ -14,8 +14,13 @@ import { SuggestedProductsList } from "@/ui/organisms/SuggestedProductsList";
 export const generateMetadata = async ({params} : {params: {productId: string}}) : Promise<Metadata> => {
 	const product = await getProductById(params.productId)
 	return {
-		title: product.name,
-		description: product.description
+		title: `${product.name} -Sklep internetowy`,
+		description: product.description,
+		openGraph: {
+			title: `${product.name} -Sklep internetowy`, 
+			description: product.description,
+			images: [product.coverImage.src]
+		}
 	}
 }
 
