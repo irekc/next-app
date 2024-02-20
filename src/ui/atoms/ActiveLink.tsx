@@ -15,8 +15,13 @@ export const ActiveLink = ({ href, children }: { href: string; children: ReactNo
 				isHome && `md:text-blue-700`,
 				isActive && `underline`,
 			)}
+			
 		>
-			<Link href={{pathname: href}}>{children}</Link>
+			<Link 
+			href={{pathname: href,}}
+			{...(isActive && {"aria-current": "page"})}
+			
+			>{children}</Link>
 		</li>
 	);
 };
