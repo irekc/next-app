@@ -13,7 +13,7 @@ export const Pagination = ({ numberOfPages }: PaginationProps) => {
           {pages.map((_, index) => {
             return (
               <ul key={index}>
-                <ActiveLink href={`/products/${index + 1}`}>
+                <ActiveLink exact href={`/products/${index + 1}`}>
                   {String(index + 1)}
                 </ActiveLink>
               </ul>
