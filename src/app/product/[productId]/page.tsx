@@ -17,10 +17,10 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
 	const product = await getProductById(params.productId);
 	return {
-		title: `${product.title} -Sklep internetowy`,
+		title: product.name,
 		description: product.description,
 		openGraph: {
-			title: `${product.title} -Sklep internetowy`,
+			title: product.name,
 			description: product.description,
 			images: [product.coverImage.src],
 		},

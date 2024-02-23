@@ -39,7 +39,7 @@ export const getProductById = async (id: ProductResponseItem["id"]) => {
 const ProductResponseItemToProductItemType = (product: ProductResponseItem): ProductItemType => {
 	return {
 		id: product.id,
-		title: product.title,
+		name: product.title,
 		category: product.category,
 		coverImage: {
 			alt: product.title,
