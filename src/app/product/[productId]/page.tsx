@@ -27,6 +27,7 @@ export const generateMetadata = async ({
 	};
 };
 
+
 // export const metadata: Metadata = {
 // 	title: 'Product 123'
 // }
