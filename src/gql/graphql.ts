@@ -1,4 +1,5 @@
 /* eslint-disable */
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -271,6 +272,11 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsGetListQuery = { products: { data: Array<{ description: string, id: string, name: string, price: number, images: Array<{ url: string }>, categories: Array<{ name: string }> }> } };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -285,3 +291,22 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+
+export const ProductsGetListDocument = new TypedDocumentString(`
+    query ProductsGetList {
+  products(take: 10) {
+    data {
+      description
+      id
+      name
+      price
+      images {
+        url
+      }
+      categories {
+        name
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
