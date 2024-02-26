@@ -1,3 +1,4 @@
+import { ProductsGetListDocument, type TypedDocumentString } from "@/gql/graphql";
 import { type ProductItemType } from "@/ui/types";
 
 type ProductResponseItem = {
@@ -14,11 +15,51 @@ type ProductResponseItem = {
 	longDescription: string;
 };
 
-export const getProdutsList = async () => {
-	const res = await fetch("https://naszsklep-api.vercel.app/api/products");
-	const productsResponse = (await res.json()) as ProductResponseItem[];
-	const products = productsResponse.map(ProductResponseItemToProductItemType);
-	return products;
+export const executeGraphql = async <TResult, TVariables>(
+	query: TypedDocumentString<TResult, TVariables>,
+	variables: TVariables,
+): Promise<TResult> => {
+	if (!process.env.GRAPHQL_URL) {
+		throw new Error("GRAPHQL_URL is not defined");
+	}
+	const res = await fetch(process.env.GRAPHQL_URL, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ query, variables }),
+	});
+
+	type GraphqlResponse<T> =
+		| { data?: undefined; errors: { message: string }[] }
+		| { data: T; errors?: undefined };
+
+	const graphqlResponse = (await res.json()) as GraphqlResponse<TResult>;
+
+	if (graphqlResponse.errors) {
+		throw new Error(`GraphQL Error`, { cause: graphqlResponse.errors });
+	}
+
+	return graphqlResponse.data;
+};
+
+export const getProdutsList = async (): Promise<ProductItemType[]> => {
+	// const res = await fetch("https://naszsklep-api.vercel.app/api/products");
+	// const productsResponse = (await res.json()) as ProductResponseItem[];
+	// const products = productsResponse.map(ProductResponseItemToProductItemType);
+	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {});
+
+	return graphqlResponse.products.data.map((p) => ({
+		id: p.id,
+		name: p.name,
+		category: p.categories[0].name,
+		coverImage: p.images[0] && {
+			alt: p.name,
+			src: p.images[0].url,
+		},
+		price: p.price,
+		description: p.description,
+	}))
 };
 
 export const getProdutsListToPagination = async (take = 20, page: number) => {

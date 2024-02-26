@@ -275,7 +275,9 @@ export type SortDirection =
 export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProductsGetListQuery = { products: { data: Array<{ description: string, id: string, name: string, price: number, images: Array<{ url: string }>, categories: Array<{ name: string }> }> } };
+export type ProductsGetListQuery = { products: { data: Array<{
+	category: any; description: string, id: string, name: string, price: number, images: Array<{ url: string }>, categories: Array<{ name: string }> 
+}> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
