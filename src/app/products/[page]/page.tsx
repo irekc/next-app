@@ -5,7 +5,7 @@ import { ProductList } from "@/ui/organisms/ProductList";
 export default async function ProductsPage() {
 	const productsOnList = 20;
 	// const products = await getProdutsListToPagination(productsOnList, params.page);
-	const products  = await getProdutsList()
+	const products = await getProdutsList();
 	const allProductsLenght = (await getProdutsList()).length;
 	const totalPages = Math.ceil(allProductsLenght / Number(productsOnList));
 

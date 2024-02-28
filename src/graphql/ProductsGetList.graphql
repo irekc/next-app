@@ -1,16 +1,7 @@
 query ProductsGetList {
-  products(take: 10) {
-    data {
-      description
-      id
-      name
-      price
-      images {
-        url
-      }
-      categories {
-        name
-      }
-    }
-  }
+	products(take: 10) {
+		data {
+			...ProductListItem
+		}
+	}
 }
