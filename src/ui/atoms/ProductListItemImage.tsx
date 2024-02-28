@@ -1,8 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
+import NextImage from "next/image";
+
 export const ProductCoverImage = ({ src, alt }: { src: string; alt: string }) => {
 	return (
 		<div className="aspect-square overflow-hidden rounded-md bg-gray-100">
-			<img
+			<NextImage
 				width={320}
 				height={320}
 				src={src}
