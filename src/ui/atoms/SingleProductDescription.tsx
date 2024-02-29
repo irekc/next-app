@@ -1,19 +1,20 @@
-import { type ProductItemType } from "@/ui/types";
+
+import type { ProductListItemFragment } from "@/gql/graphql";
 import { formatMoney } from "@/ui/utils";
 
 type ProdutListItemDescriptionProps = {
-	product: ProductItemType;
+	product: ProductListItemFragment;
 };
 
 export const SingleProductDescription = ({
-	product: { name, category, price, description },
+	product: { name, categories, price, description },
 }: ProdutListItemDescriptionProps) => {
 	return (
 		<div className="flex=column max-w-15 mt-2 justify-between p-2">
 			<div>
 				<h1 className=" text-xl font-semibold text-gray-700 dark:text-gray-200">{name}</h1>
 				<p className="text-sm text-gray-500 dark:text-gray-300">
-					<span className="sr-only">Kategoria:</span> {category}
+					<span className="sr-only">Kategoria:</span> {categories[0].name}
 				</p>
 			</div>
 			<p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
