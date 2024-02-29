@@ -16,8 +16,8 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/category/t-shirts",
-				destination: "/category/t-shirts/1",
+				source: "/categories/t-shirts",
+				destination: "/categories/t-shirts/1",
 				permanent: false,
 			},
 		];

@@ -10,7 +10,7 @@ export const Navbar = () => {
 				<ActiveLink exact={false} href="/products">
 					All
 				</ActiveLink>
-				<ActiveLink exact={false} href="/category/t-shirts">
+				<ActiveLink exact={false} href="/categories/t-shirts">
 					T-shirts
 				</ActiveLink>
 			</ul>
