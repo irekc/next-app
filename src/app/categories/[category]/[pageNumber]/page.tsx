@@ -1,7 +1,23 @@
-import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { ProductList } from "@/ui/organisms/ProductList";
 import { getProductsListByCategorySlug, getProdutsListToPagination } from "@/api/products";
 import { Pagination } from "@/ui/organisms/Pagination";
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: { category: string };
+}): Promise<Metadata> => {
+	// const product = await getProductById(params.productId);
+	// if(!product) throw new Error(`Product with id ${params.productId} not found.)`);
+
+	return {
+		title: params.category,
+		openGraph: {
+			title: params.category,
+		},
+	};
+};
 
 export default async function CategoryProductsPage({
 	params,
@@ -10,9 +26,7 @@ export default async function CategoryProductsPage({
 }) {
 	const products = await getProductsListByCategorySlug(params.category);
 
-	if (!products) {
-		throw notFound();
-	}
+	if(!products) throw new Error(`Products from category ${params.category} not found.)`)
 	const productsOnList = 2;
 	const allProductsLenght = products.length;
 	const totalPages = Math.ceil(allProductsLenght / Number(productsOnList));
@@ -25,7 +39,9 @@ export default async function CategoryProductsPage({
 
 	return (
 		<div>
-			<h1>Produkty z kategori {params.category}</h1>
+			<h1 className="mx-auto py-10 text-center text-xl font-bold">
+				{products[0].categories[0].name}
+			</h1>
 			<Pagination numberOfPages={totalPages} categories={`categories/${params.category}`} />
 			<ProductList products={paginatedProducts} />
 		</div>
