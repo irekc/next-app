@@ -14,7 +14,7 @@ export const Navbar = () => {
 					Collections
 				</ActiveLink>
 				<ActiveLink exact={false} href="/categories/t-shirts">
-					T-shirts
+					T-Shirts
 				</ActiveLink>
 			</ul>
 		</nav>

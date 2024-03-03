@@ -20,6 +20,11 @@ const nextConfig = {
 				destination: "/categories/t-shirts/1",
 				permanent: false,
 			},
+			{
+				source: "/collections",
+				destination: "/collections/summer-vibes/1",
+				permanent: false,
+			},
 		];
 	},
 };

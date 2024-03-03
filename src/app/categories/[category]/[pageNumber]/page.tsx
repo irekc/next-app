@@ -8,18 +8,9 @@ export const generateMetadata = async ({
 }: {
 	params: { category: string };
 }): Promise<Metadata> => {
-	const products = await getProductsListByCategorySlug(params.category);
-
-	if(!products) {
-		return {
-			title: params.category,
-		openGraph: {
-			title: params.category,
-		},
-		}
-	}
+	
 	return {
-		title: products[0].categories[0].name,
+		title: params.category,
 		openGraph: {
 			title: params.category,
 		},
