@@ -8,11 +8,18 @@ export const generateMetadata = async ({
 }: {
 	params: { category: string };
 }): Promise<Metadata> => {
-	// const product = await getProductById(params.productId);
-	// if(!product) throw new Error(`Product with id ${params.productId} not found.)`);
+	const products = await getProductsListByCategorySlug(params.category);
 
+	if(!products) {
+		return {
+			title: params.category,
+		openGraph: {
+			title: params.category,
+		},
+		}
+	}
 	return {
-		title: params.category,
+		title: products[0].categories[0].name,
 		openGraph: {
 			title: params.category,
 		},
@@ -26,7 +33,7 @@ export default async function CategoryProductsPage({
 }) {
 	const products = await getProductsListByCategorySlug(params.category);
 
-	if(!products) throw new Error(`Products from category ${params.category} not found.)`)
+	if (!products) throw new Error(`Products from category ${params.category} not found.)`);
 	const productsOnList = 2;
 	const allProductsLenght = products.length;
 	const totalPages = Math.ceil(allProductsLenght / Number(productsOnList));
