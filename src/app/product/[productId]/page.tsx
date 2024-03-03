@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import type { Metadata }  from "next";
+import type { Metadata } from "next";
 import { getProductById, getProdutsList } from "@/api/products";
 import { ProductCoverImage } from "@/ui/atoms/ProductListItemImage";
 import { SuggestedProductsList } from "@/ui/organisms/SuggestedProductsList";
@@ -16,7 +16,7 @@ export const generateMetadata = async ({
 	params: { productId: string };
 }): Promise<Metadata> => {
 	const product = await getProductById(params.productId);
-	if(!product) throw new Error(`Product with id ${params.productId} not found.)`);
+	if (!product) throw new Error(`Product with id ${params.productId} not found.)`);
 
 	return {
 		title: product.name,
@@ -35,7 +35,7 @@ export const generateMetadata = async ({
 
 export default async function SingleProductPage({ params }: { params: { productId: string } }) {
 	const product = await getProductById(params.productId);
-	if(!product) throw new Error(`Product with id ${params.productId} not found.)`);
+	if (!product) throw new Error(`Product with id ${params.productId} not found.)`);
 	return (
 		<>
 			<article className="mx-auto mt-5 flex max-w-2xl px-5">
@@ -45,7 +45,7 @@ export default async function SingleProductPage({ params }: { params: { productI
 			<aside className="px-5">
 				<h2 className="mx-auto py-10 text-lg font-semibold">Suggested Products</h2>
 				<Suspense aria-busy={true} fallback={"Ładowanie..."}>
-					<SuggestedProductsList />
+					<SuggestedProductsList category={product.categories[0].slug} />
 				</Suspense>
 			</aside>
 		</>
