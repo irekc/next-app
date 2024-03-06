@@ -6,6 +6,7 @@ import {
 	ProductGetByIdDocument,
 	GetCollectionsListDocument,
 	GetProductsByCollectionsSlugDocument,
+	ProductsGetsBySearchDocument,
 } from "@/gql/graphql";
 
 // type ProductResponseItem = {
@@ -64,6 +65,15 @@ export const getProductById = async (_id: ProductListItemFragment["id"]) => {
 	});
 	return data?.product;
 };
+
+export const getProductsBySearchQuery = async (query: string, take: number) => {
+	const data = await executeGraphql(ProductsGetsBySearchDocument, {
+		search: query,
+		take,
+	});
+	return data.products.data;
+
+}
 
 // const ProductResponseItemToProductItemType = (product: ProductResponseItem): ProductItemType => {
 // 	return {

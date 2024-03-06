@@ -1,0 +1,7 @@
+query ProductsGetsBySearch ($search: String!, $take: Int!) {
+  products(search: $search, take: $take) {
+    data {
+      ...ProductListItem
+    }
+  }
+}

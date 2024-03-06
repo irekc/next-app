@@ -93,6 +93,7 @@ export type MutationCartChangeItemQuantityArgs = {
 
 export type MutationCartCompleteArgs = {
   cartId: Scalars['ID']['input'];
+  userEmail: Scalars['String']['input'];
 };
 
 
@@ -306,6 +307,14 @@ export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProductsGetListQuery = { products: { data: Array<{ name: string, price: number, description: string, id: string, categories: Array<{ name: string, slug: string }>, images: Array<{ url: string }> }> } };
 
+export type ProductsGetsBySearchQueryVariables = Exact<{
+  search: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
+}>;
+
+
+export type ProductsGetsBySearchQuery = { products: { data: Array<{ name: string, price: number, description: string, id: string, categories: Array<{ name: string, slug: string }>, images: Array<{ url: string }> }> } };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -427,3 +436,24 @@ export const ProductsGetListDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ProductsGetsBySearchDocument = new TypedDocumentString(`
+    query ProductsGetsBySearch($search: String!, $take: Int!) {
+  products(search: $search, take: $take) {
+    data {
+      ...ProductListItem
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  name
+  price
+  description
+  id
+  categories {
+    name
+    slug
+  }
+  images {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductsGetsBySearchQuery, ProductsGetsBySearchQueryVariables>;
