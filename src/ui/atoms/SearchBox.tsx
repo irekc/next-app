@@ -1,6 +1,6 @@
 "use client";
 
-import {  useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function SearchBox({ placeholder }: { placeholder: string }) {
 	const searchParams = useSearchParams();
@@ -8,16 +8,17 @@ export function SearchBox({ placeholder }: { placeholder: string }) {
 	const router = useRouter();
 
 	function handleSearch(term: string) {
-		
-		const params = new URLSearchParams(searchParams);
+		if (term.length >= 2) {
+			const params = new URLSearchParams(searchParams);
 
-		if (term) {
-			params.set("query", term);
-		} else {
-			params.delete("query");
+			if (term) {
+				params.set("query", term);
+			} else {
+				params.delete("query");
+			}
+
+			router.replace(`/search?${params.toString()}`);
 		}
-
-		router.replace(`/search?${params.toString()}`);
 	}
 
 	return (
