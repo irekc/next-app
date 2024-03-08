@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-export function SearchBox({ placeholder }: { placeholder: string }) {
+export const SearchBox = ({ placeholder }: { placeholder: string }) => {
 	const searchParams = useSearchParams();
 
 	const router = useRouter();
@@ -26,15 +26,16 @@ export function SearchBox({ placeholder }: { placeholder: string }) {
 			<label htmlFor="search" className="sr-only">
 				Search
 			</label>
-			<input
-				className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-				placeholder={placeholder}
-				role="searchbox"
-				onChange={(e) => {
-					handleSearch(e.target.value);
-				}}
-				defaultValue={searchParams.get("query")?.toString()}
-			/>
+			
+				<input
+					className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+					placeholder={placeholder}
+					role="searchbox"
+					onChange={(e) => {
+						handleSearch(e.target.value);
+					}}
+					defaultValue={searchParams.get("query")?.toString()}
+				/>
 		</div>
 	);
 }

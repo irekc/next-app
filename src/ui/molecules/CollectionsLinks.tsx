@@ -3,6 +3,7 @@ import { ActiveLink } from "@/ui/atoms/ActiveLink";
 
 export async function CollectionsLinks() {
 	const collections = await getCollectionsList();
+    if(!collections) throw new Error(`Collections not found.`);
 	return (
 		<>
 			<nav>
