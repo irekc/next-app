@@ -3,21 +3,14 @@ import { ActiveLink } from "@/ui/atoms/ActiveLink";
 
 export async function CollectionsLinks() {
 	const collections = await getCollectionsList();
-    if(!collections) throw new Error(`Collections not found.`);
+	if (!collections) throw new Error(`Collections not found.`);
 	return (
 		<>
-			<nav>
-				<p className="m-auto text-center font-bold">Collections</p>
-				<ul className="flex">
-					{collections.map((collection) => (
-						<div key={collection.name} className="px-5">
-							<ActiveLink exact={false} href={`/collections/${collection.slug}/1`}>
-								{collection.name}
-							</ActiveLink>
-						</div>
-					))}
-				</ul>
-			</nav>
+			{collections.map((collection) => (
+				<ActiveLink key={collection.name} exact={false} href={`/collections/${collection.slug}/1`}>
+					{collection.name}
+				</ActiveLink>
+			))}
 		</>
 	);
 }
