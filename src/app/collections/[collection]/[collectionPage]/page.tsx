@@ -1,6 +1,22 @@
+import { type Metadata } from "next";
 import { getProductsListBycollectionSlug, getProdutsListToPagination } from "@/api/products";
 import { Pagination } from "@/ui/organisms/Pagination";
 import { ProductList } from "@/ui/organisms/ProductList";
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: { collection: string };
+}): Promise<Metadata> => {
+
+		return {
+			title: params.collection,
+			openGraph: {
+				title: params.collection,
+			},
+		};
+	}
+
 
 export default async function CollectionsProductPage({ params }: { params: { collection: string, collectionPage: string } }) {
     const products = await getProductsListBycollectionSlug(params.collection);
@@ -17,7 +33,8 @@ export default async function CollectionsProductPage({ params }: { params: { col
 	);
     return (
         <>
-            <h1>{params.collection}</h1>
+
+            <h2>{params.collection}</h2>
             <Pagination numberOfPages={totalPages} categories={`collections/${params.collection}`} />
             <ProductList products={paginatedProducts} />
             
