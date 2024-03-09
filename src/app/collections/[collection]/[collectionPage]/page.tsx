@@ -8,20 +8,22 @@ export const generateMetadata = async ({
 }: {
 	params: { collection: string };
 }): Promise<Metadata> => {
-
-		return {
+	return {
+		title: params.collection,
+		openGraph: {
 			title: params.collection,
-			openGraph: {
-				title: params.collection,
-			},
-		};
-	}
+		},
+	};
+};
 
+export default async function CollectionsProductPage({
+	params,
+}: {
+	params: { collection: string; collectionPage: string };
+}) {
+	const products = await getProductsListBycollectionSlug(params.collection);
+	if (!products) throw new Error(`Products from collection ${params.collection} not found.)`);
 
-export default async function CollectionsProductPage({ params }: { params: { collection: string, collectionPage: string } }) {
-    const products = await getProductsListBycollectionSlug(params.collection);
-    if(!products) throw new Error(`Products from collection ${params.collection} not found.)`);
-   
 	const productsOnList = 10;
 	const allProductsLenght = products.length;
 	const totalPages = Math.ceil(allProductsLenght / Number(productsOnList));
@@ -31,13 +33,11 @@ export default async function CollectionsProductPage({ params }: { params: { col
 		params.collectionPage,
 		productsOnList,
 	);
-    return (
-        <>
-
-            <h2>{params.collection}</h2>
-            <Pagination numberOfPages={totalPages} categories={`collections/${params.collection}`} />
-            <ProductList products={paginatedProducts} />
-            
-        </>
-    )
+	return (
+		<>
+			<h2 className="mt-20">{params.collection}</h2>
+			<Pagination numberOfPages={totalPages} categories={`collections/${params.collection}`} />
+			<ProductList products={paginatedProducts} />
+		</>
+	);
 }
