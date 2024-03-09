@@ -12,9 +12,6 @@ export default async function CollectionsLayout({
 }>) {
 	return (
 		<>
-			<header className="mt-20">
-				<h2>Collections</h2>
-			</header>
 			<main>{children}</main>
 		</>
 	);
