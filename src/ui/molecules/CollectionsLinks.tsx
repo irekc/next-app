@@ -7,7 +7,7 @@ export async function CollectionsLinks() {
 	return (
 		<>
 			<nav>
-				<h1 className="m-auto text-center font-bold">Collections</h1>
+				<p className="m-auto text-center font-bold">Collections</p>
 				<ul className="flex">
 					{collections.map((collection) => (
 						<div key={collection.name} className="px-5">
