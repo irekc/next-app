@@ -31,6 +31,7 @@ export default async function CollectionsProductPage({
 }: {
 	params: { collection: string; collectionPage: string };
 }) {
+	const collectionName = await getCollectionNameBySlug(params.collection);
 	const products = await getProductsListBycollectionSlug(params.collection);
 	if (!products) throw new Error(`Products from collection ${params.collection} not found.)`);
 
@@ -45,7 +46,7 @@ export default async function CollectionsProductPage({
 	);
 	return (
 		<>
-			<h2 className="mt-20">{params.collection}</h2>
+			<h2 className="mt-20">{collectionName}</h2>
 			<Pagination numberOfPages={totalPages} categories={`collections/${params.collection}`} />
 			<ProductList products={paginatedProducts} />
 		</>
