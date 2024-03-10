@@ -1,0 +1,5 @@
+query CategoryNameGetBySlug ($slug: String) {
+  category(slug: $slug) {
+    name
+  }
+}

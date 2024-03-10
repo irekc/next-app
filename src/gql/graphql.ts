@@ -274,6 +274,20 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CategoryNameGetBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CategoryNameGetBySlugQuery = { category?: { name: string } | null };
+
+export type CollectionNameGetBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CollectionNameGetBySlugQuery = { collection?: { name: string } | null };
+
 export type GetCollectionsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -344,6 +358,20 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CategoryNameGetBySlugDocument = new TypedDocumentString(`
+    query CategoryNameGetBySlug($slug: String) {
+  category(slug: $slug) {
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryNameGetBySlugQuery, CategoryNameGetBySlugQueryVariables>;
+export const CollectionNameGetBySlugDocument = new TypedDocumentString(`
+    query CollectionNameGetBySlug($slug: String) {
+  collection(slug: $slug) {
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionNameGetBySlugQuery, CollectionNameGetBySlugQueryVariables>;
 export const GetCollectionsListDocument = new TypedDocumentString(`
     query GetCollectionsList {
   collections(take: 10) {

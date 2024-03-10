@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ProductList } from "@/ui/organisms/ProductList";
-import { getProductsListByCategorySlug, getProdutsListToPagination } from "@/api/products";
+import { getCategoryNameBySlug, getProductsListByCategorySlug, getProdutsListToPagination } from "@/api/products";
 import { Pagination } from "@/ui/organisms/Pagination";
 
 export const generateMetadata = async ({
@@ -8,9 +8,9 @@ export const generateMetadata = async ({
 }: {
 	params: { category: string };
 }): Promise<Metadata> => {
-	const products = await getProductsListByCategorySlug(params.category);
+	const categoryName = await getCategoryNameBySlug(params.category);
 
-	if (!products) {
+	if (!categoryName) {
 		return {
 			title: params.category,
 			openGraph: {
@@ -19,9 +19,9 @@ export const generateMetadata = async ({
 		};
 	}
 	return {
-		title: products[0].categories[0].name,
+		title: categoryName,
 		openGraph: {
-			title: products[0].categories[0].name,
+			title: categoryName,
 		},
 	};
 };

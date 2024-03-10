@@ -1,0 +1,5 @@
+query CollectionNameGetBySlug($slug: String) {
+	collection(slug: $slug) {
+		name
+	}
+}
