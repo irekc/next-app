@@ -1,24 +1,26 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 export const SearchBox = () => {
 	const searchParams = useSearchParams();
 
 	const router = useRouter();
 
-	function handleSearch(term: string) {
+	const handleSearch = useDebouncedCallback((term: string) => {
+		console.log(`Searching... ${term}`);
 		const params = new URLSearchParams(searchParams);
-if (term.length >= 2){
-		if (term) {
-			params.set("query", term);
-		} else {
-			params.delete("query");
-		}
+		if (term.length >= 2) {
+			if (term) {
+				params.set("query", term);
+			} else {
+				params.delete("query");
+			}
 
-		router.replace(`/search?${params.toString()}`);
-	}
-}
+			router.replace(`/search?${params.toString()}`);
+		}
+	}, 500);
 	return (
 		<div className="relative mx-16 flex max-w-md flex-1 flex-shrink-0 items-center justify-center">
 			<label htmlFor="search" className="sr-only">
