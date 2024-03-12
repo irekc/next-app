@@ -2,7 +2,7 @@ import { getProductsBySearchQuery } from "@/api/products";
 import { ProductList } from "@/ui/organisms/ProductList";
 
 export async function SearchProducts({ query }: { query: string }) {
-	const take = 10;
+	const take = 1;
 	const products = await getProductsBySearchQuery(query, take);
 	if (!products) throw new Error(`Products not found.`);
 

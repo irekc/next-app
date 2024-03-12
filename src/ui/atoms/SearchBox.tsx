@@ -11,7 +11,7 @@ export const SearchBox = () => {
 	const handleSearch = useDebouncedCallback((term: string) => {
 		console.log(`Searching... ${term}`);
 		const params = new URLSearchParams(searchParams);
-		if (term.length >= 2) {
+		
 			if (term) {
 				params.set("query", term);
 			} else {
@@ -19,7 +19,7 @@ export const SearchBox = () => {
 			}
 
 			router.replace(`/search?${params.toString()}`);
-		}
+		
 	}, 500);
 	return (
 		<div className="relative mx-16 flex max-w-md flex-1 flex-shrink-0 items-center justify-center">

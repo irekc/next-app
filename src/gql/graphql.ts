@@ -316,6 +316,11 @@ export type ProductsGetByCategorySlugQueryVariables = Exact<{
 
 export type ProductsGetByCategorySlugQuery = { category?: { products: Array<{ name: string, price: number, description: string, id: string, categories: Array<{ name: string, slug: string }>, images: Array<{ url: string }> }> } | null };
 
+export type ProductsGetByRatingQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsGetByRatingQuery = { products: { data: Array<{ name: string, price: number, description: string, id: string, categories: Array<{ name: string, slug: string }>, images: Array<{ url: string }> }> } };
+
 export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -443,6 +448,27 @@ export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
     url
   }
 }`) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
+export const ProductsGetByRatingDocument = new TypedDocumentString(`
+    query ProductsGetByRating {
+  products(orderBy: RATING, take: 4) {
+    data {
+      ...ProductListItem
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  name
+  price
+  description
+  id
+  categories {
+    name
+    slug
+  }
+  images {
+    url
+  }
+}`) as unknown as TypedDocumentString<ProductsGetByRatingQuery, ProductsGetByRatingQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList {
   products(take: 10) {

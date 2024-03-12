@@ -9,6 +9,7 @@ import {
 	ProductsGetsBySearchDocument,
 	CollectionNameGetBySlugDocument,
 	CategoryNameGetBySlugDocument,
+	ProductsGetByRatingDocument,
 } from "@/gql/graphql";
 
 // type ProductResponseItem = {
@@ -71,7 +72,7 @@ export const getProductById = async (_id: ProductListItemFragment["id"]) => {
 export const getProductsBySearchQuery = async (query: string, take: number) => {
 	const data = await executeGraphql(ProductsGetsBySearchDocument, {
 		search: query,
-		take,
+		take: take,
 	});
 	return data.products.data;
 };
@@ -82,13 +83,17 @@ export const getCollectionNameBySlug = async (slug: string) => {
 	});
 
 	return data?.collection?.name;
-	
 };
 
 export const getCategoryNameBySlug = async (slug: string) => {
-	const data = await executeGraphql(CategoryNameGetBySlugDocument, {	slug: slug,});
+	const data = await executeGraphql(CategoryNameGetBySlugDocument, { slug: slug });
 	return data?.category?.name;
-}
+};
+
+export const getProductsByRating = async () => {
+	const data = await executeGraphql(ProductsGetByRatingDocument, {});
+	return data.products.data;
+};
 
 // const ProductResponseItemToProductItemType = (product: ProductResponseItem): ProductItemType => {
 // 	return {
